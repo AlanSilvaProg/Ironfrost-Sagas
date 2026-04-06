@@ -1,0 +1,10 @@
+**/bin/
+**/obj/
+**/.DS_Store
+.idea/
+.git/
+README.md
+docker-compose.yml
+init-db.sql
+build-and-run.sh
+**/*.http

@@ -1,0 +1,6 @@
+@Icefrost.PlayerService_HostAddress = http://localhost:5236
+
+GET {{Icefrost.PlayerService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

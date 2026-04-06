@@ -39,3 +39,22 @@
 
 # debug information files
 *.dwo
+
+# Environment
+.env
+
+# .NET
+bin/
+obj/
+packages/
+publish/
+*.user
+*.suo
+*.csproj.user
+
+# IDE
+.idea/
+.vs/
+
+# OS
+.DS_Store

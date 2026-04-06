@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GitLabMergeRequestsSettings">{}</component>
+  <component name="GithubPullRequestsUISettings">{}</component>
+  <component name="KubernetesApiProvider">{}</component>
+  <component name="editorHistoryManager">
+    <entry file="file://$USER_HOME$/Desktop/Projects/UnityClient/src/BM.PoolingSystem/Runtime/PoolingManager.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="56" column="20" selection-start-line="56" selection-start-column="20" selection-end-line="56" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Desktop/Projects/UnityClient/src/BM.Gameplay.View/Runtime/PreRound/BuyCart/PreRoundBuyCart.cs" />
+    <entry file="file://$USER_HOME$/Desktop/Projects/UnityClient/src/BM.Gameplay.View/Runtime/GameEvent/GameEventQueue.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="110" column="12" lean-forward="true" selection-start-line="110" selection-start-column="12" selection-end-line="110" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Desktop/Projects/UnityClient/src/BM.Gameplay.View/Runtime/VB/BallsPanel/NextDrawAction/NextDrawValueDisplay.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="92" column="41" selection-start-line="92" selection-start-column="41" selection-end-line="92" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Desktop/Projects/UnityClient/src/BM.Feed.View/Runtime/JackpotFeedItemView.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="20" column="34" selection-start-line="20" selection-start-column="34" selection-end-line="20" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Desktop/Projects/UnityClient/src/BM.Gameplay.Integration/Runtime/Round/RoundImpl.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="24" column="56" selection-start-line="24" selection-start-column="56" selection-end-line="24" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

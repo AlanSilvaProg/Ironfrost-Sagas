@@ -1,0 +1,64 @@
+@Authentication_HostAddress = http://localhost:5288
+@jwt_admin = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhbGFuZnMxMEBnbWFpbC5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJVc2VyIiwianRpIjoiOGJjYTA2ZTYtYjQyOC00ZTAzLTliNjYtYjU2ODA1OTVhMTI3IiwiZXhwIjoxNzYyMjYxNDcxLCJpc3MiOiJTdHVkeUNhc2VXZWJBcGlJc3N1ZXIifQ.xzyRBiusZoQkhbt4ZN34Qo-72Wma-iz5xpd3nidKfPk
+
+POST http://localhost:5288/api/Authentication/Login
+Content-Type: application/json
+
+{
+  "username": "AlanFS",
+  "password": "Alan123.FFF",
+  "email": "alanfs10@gmail.com",
+  "isAdmin": false
+}
+
+###
+
+POST http://localhost:5288/api/Authentication/Login
+Content-Type: application/json
+
+{
+  "username": "alanaaa",
+  "email": "alanaaa@admin.com",
+  "password": "fcgAdmin123."
+}
+
+###
+
+POST http://localhost:5288/api/Authentication/CreateAccount
+Content-Type: application/json
+
+{
+  "username": "alanaaa",
+  "email": "alanaaa@admin.com",
+  "password": "fcgAdmin123.",
+  "isAdmin": true
+}
+
+###
+
+POST http://localhost:5288/api/UserCreator/CreateUser
+Content-Type: application/json
+Authorization: Bearer {{jwt_admin}}
+
+{
+  "username": "AlanFS",
+  "password": "Alan123.FFF",
+  "email": "alanfs10@gmail.com",
+  "isAdmin": false
+}
+
+###
+
+POST http://localhost:5288/api/UserCreator/CreateUser
+Content-Type: application/json
+Authorization: Bearer {{jwt_admin}}
+
+{
+  "username": "Alanfsaa",
+  "password": "Alan123.aaa",
+  "email": "alanfs101aaaaa@gmail.com",
+  "isAdmin": false
+}
+
+###
+
