@@ -1,0 +1,6 @@
+@Ironfrost.GameService_HostAddress = http://localhost:5224
+
+GET {{Ironfrost.GameService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

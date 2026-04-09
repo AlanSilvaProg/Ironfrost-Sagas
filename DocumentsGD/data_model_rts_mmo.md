@@ -118,21 +118,18 @@ Não precisa de tabela de junção `UserVillage` — a relação é **1:N** simp
 
 ### BuildingType (enum)
 ```
-0 = Headquarters     (Edifício Principal)
-1 = Barracks         (Quartel)
-2 = Stable           (Estábulo)
-3 = Workshop         (Oficina)
-4 = Smithy           (Ferreiro)
-5 = Market           (Mercado)
-6 = TimberCamp       (Serraria)
-7 = ClayPit          (Poço de Argila)
-8 = IronMine         (Mina de Ferro)
-9 = Farm             (Fazenda)
-10 = Warehouse       (Armazém)
-11 = Wall            (Muralha)
-12 = Rally Point     (Ponto de Encontro)
-13 = Church          (Igreja) — opcional
-14 = Academy         (Academia)
+0  = JarlsHall           (Jarl's Hall — City Center)
+1  = FreyjasTemple       (Freyja's Temple — Divine Worship)
+2  = BerserkersBarrack   (Berserker's Barrack — Troop Training)
+3  = DrakkarShipyard     (Drakkar Shipyard — Ship Construction)
+4  = ExplorersHouse      (Explorer's House — Exploration & Espionage)
+5  = EldrunarsCave       (Eldrunar's Cave — Metal & Magical Resource)
+6  = RunicSanctuary      (Runic Sanctuary — Research & Magic Upgrades)
+7  = StorageAndMarket    (Storage & Market — Resource Management)
+8  = SacredHarvestField  (Sacred Harvest Field — Food Production)
+9  = WatchTower          (Watch Tower — Defense & Alert)
+10 = VidarsWoodland      (Víðarr's Woodland — Wood Production)
+11 = DvergrsQuarry       (Dvergr's Quarry — Rock Production)
 ```
 
 > [!TIP]
@@ -157,17 +154,28 @@ Não precisa de tabela de junção `UserVillage` — a relação é **1:N** simp
 
 ### TroopType (enum)
 ```
-0 = Spearman         (Lanceiro)
-1 = Swordsman        (Espadachim)
-2 = Axeman           (Bárbaro)
-3 = Archer           (Arqueiro) — opcional
-4 = LightCavalry     (Cavalaria Leve)
-5 = HeavyCavalry     (Cavalaria Pesada)
-6 = MountedArcher    (Arqueiro Montado) — opcional
-7 = Ram              (Aríete)
-8 = Catapult         (Catapulta)
-9 = Noble            (Nobre/Paladino — para conquista)
-10 = Scout           (Explorador)
+// 🟢 Basic (Berserker's Barrack Lv 1–5)
+0  = Spearman         (Lanceiro — Ground, Melee, Defensive)
+1  = Viking           (Viking — Ground, Melee, Offensive)
+2  = Bowman           (Arqueiro — Ground, Ranged, Offensive)
+
+// 🔵 Advanced (Berserker's Barrack Lv 10–20 + Research)
+3  = Shieldmaiden     (Donzela do Escudo — Ground, Melee, Defensive)
+4  = Berserker        (Berserker — Ground, Melee, Offensive)
+5  = Huntsman         (Rastreador — Ground, Ranged, Offensive)
+6  = Cavaleiro        (Riddari — Ground, Melee, Mixed)
+
+// 🟣 Elite (Berserker's Barrack Lv 25–35 + Advanced Research)
+7  = Huskarl          (Huskarl — Ground, Melee, Defensive)
+8  = Jomsviking       (Jomsviking — Ground, Melee, Offensive)
+9  = Ulfhednar        (Guerreiro-Lobo — Ground, Melee, Offensive)
+10 = Runecaster       (Lançador de Runas — Ground, Ranged, Mixed)
+
+// 🟡 Mythological (Freyja's Temple + Deity + Eldrunar)
+11 = Valkyrie         (Valquíria — Flying, Melee, Mixed · Deity: Freyja)
+12 = FrostGiant       (Jötunn — Ground, Melee, Offensive/Siege · Deity: Skadi)
+13 = RavenOfOdin      (Huginn — Flying, Ranged, Offensive)
+14 = Einherjar        (Einherjar — Ground, Melee, Mixed · Deity: Tyr)
 ```
 
 > [!IMPORTANT]

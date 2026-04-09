@@ -206,8 +206,8 @@ CostAtLevel(L) = floor( BaseCost × CostGrowth ^ (L - 1) )
 | #  | Building                 | Function                        | Max Level | 🪵 Wood | 🪨 Rock | ⛏️ Metal | ✨ Eldrunar | Cost Growth |
 |----|--------------------------|:-------------------------------:|:---------:|:------:|:------:|:-------:|:----------:|:-----------:|
 | 1  | **Jarl's Hall**          | City Center                     | 20        | 90     | 120    | 60      | —          | 28%         |
-| 2  | **Freyja's Temple**      | Divine Worship                  | 20        | 60     | 100    | 40      | 15         | 25%         |
-| 3  | **Berserker's Barrack**  | Troop Training                  | 35        | 80     | 70     | 90      | —          | 18%         |
+| 2  | **Freyja's Temple**      | Divine Worship · Mythological Troop Training | 20        | 60     | 100    | 40      | 15         | 25%         |
+| 3  | **Berserker's Barrack**  | Troop Training (Basic, Advanced, Elite) | 35        | 80     | 70     | 90      | —          | 18%         |
 | 4  | **Drakkar Shipyard**     | Ship Construction               | 20        | 140    | 60     | 80      | —          | 25%         |
 | 5  | **Explorer's House**     | Exploration & Espionage         | 10        | 50     | 40     | 30      | —          | 30%         |
 | 6  | **Eldrunar's Cave**      | Metal & Magical Resource Source | 40        | 40     | 90     | 50      | —          | 15%         |
@@ -697,7 +697,440 @@ With 1,304 citizens at max population, 10% resting (130 idle), **1,174 allocatab
 
 ### 8.9 Troops
 
-> **TODO:** Define troop types, stats, costs, and training times.
+Troops are trained at the **Berserker's Barrack** (regular troops) or **Freyja's Temple** (mythological troops). Each troop belongs to one of four tiers, has a combat role, and fits into a counter system that rewards strategic army composition.
+
+> For detailed battle calculations, see [Battle Algorithm](./Battle%20Algorithm.md).
+
+---
+
+#### Troop Roster Overview
+
+| #  | Name              | Tier          | Locomotion      | Attack Style    | Role            | Training Building       |
+|:--:|-------------------|:-------------:|:---------------:|:---------------:|:---------------:|:-----------------------:|
+| 1  | Spearman          | 🟢 Basic      | 🚶 Ground       | ⚔️ Melee        | 🛡️ Defensive    | Berserker's Barrack     |
+| 2  | Viking            | 🟢 Basic      | 🚶 Ground       | ⚔️ Melee        | ⚔️ Offensive    | Berserker's Barrack     |
+| 3  | Bowman            | 🟢 Basic      | 🚶 Ground       | 🏹 Ranged       | ⚔️ Offensive    | Berserker's Barrack     |
+| 4  | Shieldmaiden      | 🔵 Advanced   | 🚶 Ground       | ⚔️ Melee        | 🛡️ Defensive    | Berserker's Barrack     |
+| 5  | Berserker         | 🔵 Advanced   | 🚶 Ground       | ⚔️ Melee        | ⚔️ Offensive    | Berserker's Barrack     |
+| 6  | Huntsman          | 🔵 Advanced   | 🚶 Ground       | 🏹 Ranged       | ⚔️ Offensive    | Berserker's Barrack     |
+| 7  | Cavaleiro         | 🔵 Advanced   | 🚶 Ground       | ⚔️ Melee        | ⚔️🛡️ Mixed     | Berserker's Barrack     |
+| 8  | Huskarl           | 🟣 Elite      | 🚶 Ground       | ⚔️ Melee        | 🛡️ Defensive    | Berserker's Barrack     |
+| 9  | Jomsviking        | 🟣 Elite      | 🚶 Ground       | ⚔️ Melee        | ⚔️ Offensive    | Berserker's Barrack     |
+| 10 | Ulfhednar         | 🟣 Elite      | 🚶 Ground       | ⚔️ Melee        | ⚔️ Offensive    | Berserker's Barrack     |
+| 11 | Runecaster        | 🟣 Elite      | 🚶 Ground       | 🏹 Ranged       | ⚔️🛡️ Mixed     | Berserker's Barrack     |
+| 12 | Valkyrie          | 🟡 Mythological | 🦅 Flying     | ⚔️ Melee        | ⚔️🛡️ Mixed     | Freyja's Temple         |
+| 13 | Frost Giant       | 🟡 Mythological | 🚶 Ground     | ⚔️ Melee        | ⚔️ Offensive    | Freyja's Temple         |
+| 14 | Raven of Odin     | 🟡 Mythological | 🦅 Flying     | 🏹 Ranged       | ⚔️ Offensive    | Freyja's Temple         |
+| 15 | Einherjar         | 🟡 Mythological | 🚶 Ground     | ⚔️ Melee        | ⚔️🛡️ Mixed     | Freyja's Temple         |
+
+---
+
+#### Combat Stats
+
+> ⚠️ These values are **initial proposals for playtesting**. Final balancing depends on simulation and testing.
+
+| #  | Troop          | ATK | DEF (Melee) | DEF (Ranged) | Speed | Carry | Pop |
+|:--:|----------------|:---:|:-----------:|:------------:|:-----:|:-----:|:---:|
+| 1  | Spearman       | 10  | 25          | 10           | 18    | 25    | 1   |
+| 2  | Viking         | 25  | 5           | 5            | 18    | 40    | 1   |
+| 3  | Bowman         | 15  | 5           | 20           | 18    | 20    | 1   |
+| 4  | Shieldmaiden   | 15  | 40          | 35           | 16    | 15    | 2   |
+| 5  | Berserker      | 45  | 5           | 3            | 20    | 30    | 2   |
+| 6  | Huntsman       | 30  | 8           | 20           | 22    | 30    | 2   |
+| 7  | Cavaleiro      | 30  | 25          | 18           | 24    | 50    | 3   |
+| 8  | Huskarl        | 20  | 55          | 45           | 14    | 15    | 5   |
+| 9  | Jomsviking     | 60  | 20          | 12           | 16    | 40    | 5   |
+| 10 | Ulfhednar      | 55  | 10          | 8            | 28    | 60    | 4   |
+| 11 | Runecaster     | 35  | 15          | 25           | 14    | 20    | 5   |
+| 12 | Valkyrie       | 70  | 40          | 30           | 30    | 30    | 10  |
+| 13 | Frost Giant    | 120 | 50          | 15           | 8     | 100   | 15  |
+| 14 | Raven of Odin  | 50  | 10          | 10           | 35    | 10    | 8   |
+| 15 | Einherjar      | 90  | 60          | 50           | 20    | 50    | 12  |
+
+- **ATK** — Offensive power per unit
+- **DEF (Melee)** — Defense against melee attacks
+- **DEF (Ranged)** — Defense against ranged attacks
+- **Speed** — Movement speed on the world map (tiles/hour)
+- **Carry** — Maximum resources the unit can loot per trip
+- **Pop** — Citizens consumed to train one unit
+
+> **TODO:** Define training costs (Wood, Rock, Metal, Eldrunar, Meat, Skin) and training times for each troop.
+
+---
+
+#### Tier Requirements
+
+| Tier | Pop Cost | Typical Requirements |
+|------|:--------:|----------------------|
+| 🟢 **Basic** | 1 | Berserker's Barrack Level 1–5 |
+| 🔵 **Advanced** | 2–3 | Berserker's Barrack Level 10–20 + Runic Sanctuary Research |
+| 🟣 **Elite** | 4–6 | Berserker's Barrack Level 25–35 + Advanced Research |
+| 🟡 **Mythological** | 8–15 | Freyja's Temple + Deity Allegiance + Eldrunar |
+
+---
+
+#### Troop Visual Descriptions
+
+<details>
+<summary><strong>🟢 Basic Troops — Visual Reference</strong></summary>
+
+##### Spearman
+**Silhouette:** Medium-height, lean build. Stands upright with spear held vertically, round wooden shield at the side.
+**Armor:** Leather tunic over wool clothing. Simple iron nasal helm. Wrapped leather bracers on forearms.
+**Weapons:** 2-meter ash-wood spear with iron tip. Round shield (linden wood, iron boss center, painted in clan colors).
+**Color Palette:** Earth tones — brown leather, grey wool, weathered wood. Shield features a single clan rune mark.
+**Visual Identity:** The "everyman" soldier. Looks like a farmer who picked up a spear. Reliable, unglamorous, numerous.
+
+##### Viking
+**Silhouette:** Broad-shouldered, aggressive forward lean. Leading arm raised with axe. No shield — both hands weapon-ready.
+**Armor:** Bare arms with runic tattoos. Sleeveless leather vest over a linen shirt. Thick leather belt with iron buckle. Simple leather skullcap or no helm.
+**Weapons:** Single-handed bearded axe (primary). Seax knife at the belt (backup).
+**Color Palette:** Raw, primal — exposed skin with blue-black tattoo ink, dark leather, iron-grey blade edge. Hair is wild and unkempt.
+**Visual Identity:** Feral energy. Should look like someone who WANTS to fight. Eyes wide, muscles tense. The quintessential Norse raider.
+
+##### Bowman
+**Silhouette:** Tall, lean, slightly crouched in a ready stance. Bow drawn at half-tension. Quiver visible on the back.
+**Armor:** Hooded cloak over light leather armor. Fur-lined boots for silent movement. Leather finger-guards.
+**Weapons:** Longbow made of yew wood. Quiver of 20 iron-tipped arrows. Hunting knife at the hip.
+**Color Palette:** Forest camouflage — dark green cloak, brown leather, muted tones. Designed to blend into the Midgard woodlands.
+**Visual Identity:** The silent hunter. Calm, focused posture. Should feel like they appeared out of nowhere.
+
+</details>
+
+<details>
+<summary><strong>🔵 Advanced Troops — Visual Reference</strong></summary>
+
+##### Shieldmaiden
+**Silhouette:** Strong, planted stance. Oversized shield held forward, creating a wall effect. Short sword visible behind the shield.
+**Armor:** Chainmail byrnie over padded wool gambeson. Iron-rimmed round shield (larger than Spearman's). Open-faced iron helm with cheek guards. Braided hair tucked under a leather headband.
+**Weapons:** Reinforced iron-rimmed shield (90cm diameter, iron boss, riveted construction). Short sword / gladius-length blade for close-quarters.
+**Color Palette:** Iron grey chainmail, burnished shield surface with intricate knotwork patterns. Strong feminine features visible. Blue cloth accents.
+**Visual Identity:** Powerful and dignified. Should evoke Brynhildr and Lagertha — not sexualized, but clearly formidable. The shield dominates her visual profile.
+
+##### Berserker
+**Silhouette:** Hunched, feral crouch. Arms spread wide, dual weapons ready. Mouth open in a scream. Spine curved forward like a predatory animal.
+**Armor:** Bare-chested with ritual scarification and extensive blue-black tattoos (runic protection symbols). Bear-skin pelt draped over one shoulder. Leather trousers bound with rope.
+**Weapons:** Dual bearded axes or a two-handed Dane axe. No shield (disdains defense).
+**Color Palette:** Exposed flesh is the primary "color" — scars, tattoos, and sweat. The bear pelt is dark brown. Axes are blackened iron. Eyes are wild, pupils dilated.
+**Visual Identity:** Terror incarnate. Should make the viewer uncomfortable. The antithesis of the disciplined Shieldmaiden — pure, unhinged violence.
+
+##### Huntsman
+**Silhouette:** Low, crouched stance — almost kneeling. Compact bow drawn with precision. Cloak draped to break the silhouette.
+**Armor:** Reinforced leather armor with metal studs. Wolfskin cloak with hood pulled forward, obscuring the face. Light leather boots with wrapped ankle supports.
+**Weapons:** Composite recurve bow (shorter than Bowman's longbow but more powerful). Runic-tipped arrows with distinctive fletching. A hatchet at the belt for emergency melee.
+**Color Palette:** Deep forest — charcoal grey cloak, dark brown leather, hints of dark green. The runic arrow tips glow faintly with a pale blue shimmer.
+**Visual Identity:** Predator, not a soldier. Where the Bowman is a trained militiaman, the Huntsman is an apex predator who has survived the wilds alone.
+
+##### Cavaleiro (Riddari)
+**Silhouette:** Mounted figure on a stocky Norse horse. Sits tall in the saddle. Lance or sword raised. Horse draped with a simple cloth caparison.
+**Armor:** Half-plate over chainmail — iron pauldrons, breastplate, chainmail skirt. Open-faced helm with a nose guard and bronze inlay. Leather riding gloves.
+**Weapons:** Mounted lance (primary charge weapon). Arming sword (secondary). Round shield strapped to the off-arm or saddle.
+**Color Palette:** The most "knightly" troop — polished iron with bronze accents, deep crimson cloth caparison on the horse, clan sigil on the shield. The horse is a sturdy fjord breed (grey-dun color).
+**Visual Identity:** Authority and versatility. The Jarl's trusted commander. Should feel like the most "professional" soldier on the battlefield — disciplined, well-equipped, deadly from horseback.
+
+</details>
+
+<details>
+<summary><strong>🟣 Elite Troops — Visual Reference</strong></summary>
+
+##### Huskarl
+**Silhouette:** Massive, immovable wall. Tower shield planted on the ground, only the eyes visible above. Full body concealed behind metal and wood.
+**Armor:** Full chainmail hauberk extending to the knees. Steel lamellar over the torso. Tower shield (kite-shaped, reinforced with iron bands). Full enclosed iron helm with eye-slits.
+**Weapons:** Long sword (for reach around the shield). Tower shield is the primary "weapon" — a wall of defense.
+**Color Palette:** All iron and steel — the darkest, most heavily-armored silhouette. The helm obscures all humanity. Gold trim on the shield edge indicates Jarl's personal guard. Deep purple cloth beneath the armor.
+**Visual Identity:** An impenetrable fortress in human form. No face visible, no personality shown — only duty and iron. The ultimate "I shall not move" energy.
+
+##### Jomsviking
+**Silhouette:** Tall, athletic, combat-ready stance. Balanced posture — equally ready for offense or defense. Dual-wielding or wielding a longsword with shield.
+**Armor:** Blackened chainmail with a leather surcoat bearing the Jomsviking raven insignia. Iron-reinforced bracers. Open-faced helm with raven-wing side pieces. Black cloak pinned at the shoulder.
+**Weapons:** Longsword (masterwork steel). Round battle shield with the Jomsviking brotherhood emblem — a raven with spread wings over a sword.
+**Color Palette:** Black and gold — blackened iron, black leather, black cloak, with gold raven insignia and gold sword pommel. The elite mercenary look. Clean, professional, lethal.
+**Visual Identity:** The "special forces" aesthetic. Every piece of gear is perfectly maintained. They move like professionals. The contrast with the feral Berserker is stark — same destructive power, but with precision and control.
+
+##### Ulfhednar (Wolf-Warrior)
+**Silhouette:** Low, feral sprint posture. Running on all fours or in a deep crouch. Wolf pelt over the head and shoulders, blending the human and animal silhouette.
+**Armor:** Almost none — wolfskin pelt from head to waist. Leather wraps on forearms and shins. Ritual wolf-tooth necklace. Body marked with wolf-blood rune paint (temporary war paint).
+**Weapons:** Two hand-axes (fast, dual-wielded). Teeth filed to points. Claws? Maybe ritualistic iron claw-gauntlets.
+**Color Palette:** Grey wolf fur is the dominant color. Pale skin beneath, smeared with dark grey war paint in wolf-rune patterns. Iron-grey axes. Yellow eyes (contact lenses? ritual transformation?).
+**Visual Identity:** Half-man, half-wolf. Should be genuinely unsettling — faster than a Berserker, more animalistic. The wolf pelt should make it ambiguous whether this is a person or a creature.
+
+##### Runecaster
+**Silhouette:** Upright, mystical stance. One hand extended forward with glowing runes spiraling around the fingers. Staff held in the off-hand. Robes flowing.
+**Armor:** Runic-inscribed leather armor beneath layered wool and linen robes. Iron circlet with an Eldrunar crystal embedded in the forehead. Leather bandoliers holding runic stones.
+**Weapons:** Runic staff (channeling focus, not melee). Runic stones thrown as projectiles — they glow pale blue/purple and shatter on impact, releasing energy. A ritual dagger at the belt.
+**Color Palette:** Deep purple robes with silver-blue runic embroidery. The Eldrunar crystal glows faintly turquoise. Rune stones emit a pale blue light. The overall impression is "warrior-mage" — armored enough for the battlefield, mystical enough to feel otherworldly.
+**Visual Identity:** The transition point between human and divine. Should look scholarly but dangerous. Runes floating in the air around them during combat as a VFX signature.
+
+</details>
+
+<details>
+<summary><strong>🟡 Mythological Troops — Visual Reference</strong></summary>
+
+##### Valkyrie
+**Silhouette:** Winged warrior descending from above. Large feathered wings (swan or eagle) spread wide. Spear pointed downward in a diving attack posture. Hair flowing behind.
+**Armor:** Golden-white chainmail that seems to glow softly. Winged helm (actual functioning wings, not decorative). Skirt of chainmail links extending to the knees. Bracers inscribed with Freyja's runes.
+**Weapons:** Divine spear (Gungnir-inspired, but shorter — a javelin/spear hybrid). Small round shield with Freyja's cat sigil. A secondary short sword at the hip.
+**Color Palette:** Celestial — gold, white, and pale blue. The armor catches light unnaturally. Wings are white-grey feathered with golden tips. Eyes glow with a faint amber light. Golden hair (or silver).
+**Visual Identity:** Angelic yet militant. Beautiful but terrifying — like a divine predator descending on prey. The wings should be functional and large (3-4m wingspan). Should feel like encountering something from another world entirely.
+
+##### Frost Giant (Jötunn)
+**Silhouette:** Enormous — 4x the height of a human troop. Hunched, brutish posture. Massive arms that drag near the ground. Ice crystals forming on the body.
+**Armor:** No crafted armor — the Jötunn's skin IS the armor. Blue-grey stone-like skin covered in patches of ice and frost. Ancient runes carved directly into the flesh (Skadi's marks). A crude loincloth of mammoth hide.
+**Weapons:** An uprooted tree trunk used as a club, or a boulder carried in one hand for throwing. Some may carry a crude ice-axe the size of a human door.
+**Color Palette:** Arctic blues and greys — pale blue skin, white frost patches, grey-blue ice formations. Eyes are deep glacial blue with no visible pupil. Breath is visible fog. The ground freezes where they step.
+**Visual Identity:** Primordial, ancient, MASSIVE. Should dwarf everything on screen. Not evil, but elemental — a force of nature that has been weaponized. Ice particles fall from them constantly.
+
+##### Raven of Odin (Huginn)
+**Silhouette:** Oversized raven (2m wingspan) surrounded by a faint aura of dark energy. Talons extended. Beak open with visible runic energy crackling inside.
+**Armor:** No traditional armor — the feathers themselves shimmer with a dark iridescent magical shield. A small runic collar around the neck (binding sigil from Odin).
+**Weapons:** Razor talons crackling with runic lightning. Arcane bolts fired from the beak (ranged attack). The wingbeat itself creates small shockwaves.
+**Color Palette:** Midnight black feathers with iridescent purple-blue sheen (like oil on water). Eyes are pure white with no iris. Runic energy is dark purple. The collar is gold with a single Eldrunar crystal.
+**Visual Identity:** Ominous intelligence. This is not a bird — it's a divine agent. Should feel like being watched by something ancient and omniscient. The glow from its eyes should be unsettling.
+
+##### Einherjar
+**Silhouette:** Spectral warrior with an ethereal, semi-transparent quality. A perfect warrior form — ideal proportions, perfect posture, weapons held with absolute mastery. Faint golden light emanates from within.
+**Armor:** Ancient ornate armor that blends Norse styles from across centuries — elements of Viking, Anglo-Saxon, and proto-Germanic design. The armor appears solid but occasionally flickers with transparency, revealing golden light beneath. Helm with eye-guards, full chainmail, ornate bracers.
+**Weapons:** A masterwork sword that glows with Tyr's golden rune on the blade. A round shield with an embossed design of Valhalla's gates. The weapons appear to be made of light as much as steel.
+**Color Palette:** Gold, spectral white, and ethereal blue. The entire figure has a faint golden luminescence. The armor is bronze-gold with ancient green patina in the crevices. Eyes are solid gold. When they move, afterimages trail behind them briefly.
+**Visual Identity:** The perfected warrior ideal. Every movement is precise, every stance is textbook. They are what every living warrior aspires to become — the absolute pinnacle of combat, transcending death itself. Should feel simultaneously inspiring and melancholic — these are the *dead*.
+
+</details>
+
+---
+
+#### Troop Descriptions
+
+<details>
+<summary><strong>🟢 Tier 1 — Basic Troops</strong></summary>
+
+##### 1. Spearman *(Lanceiro)*
+
+**Type:** Ground · Melee · Defensive
+**Tier:** 🟢 Basic
+
+The backbone of any Norse settlement's defense. Armed with a sturdy ash-wood spear and a round shield, the Spearman excels at holding defensive lines and repelling mounted charges. Their long reach gives them a natural advantage against cavalry, but they struggle against fast-moving melee fighters who can get past their spear point. Every Jarl's first line of defense begins with a wall of spears.
+
+- **Strong against:** Cavaleiro, mounted units
+- **Weak against:** Viking, Berserker (aggressive melee infantry)
+
+---
+
+##### 2. Viking
+
+**Type:** Ground · Melee · Offensive
+**Tier:** 🟢 Basic
+
+The fearsome Norse raider — armed with a battle-axe and burning fury. The Viking embodies raw offensive power: devastating melee damage at the cost of minimal armor and self-preservation. They believe that death in battle is the gateway to Valhalla, and they fight accordingly — charging headfirst without hesitation. Their aggression makes them exceptional against ranged units who cannot withstand close combat, but disciplined defensive formations can break their charge.
+
+- **Strong against:** Bowman, ranged units, light troops
+- **Weak against:** Spearman, Shieldmaiden (disciplined defensive troops)
+
+---
+
+##### 3. Bowman *(Arqueiro)*
+
+**Type:** Ground · Ranged · Offensive
+**Tier:** 🟢 Basic
+
+Hunters and woodsmen trained to loose arrows with deadly precision. The Bowman strikes from a distance, whittling down enemy forces before the melee clash begins. Effective against slow-moving heavy infantry and siege formations, but fatally vulnerable once enemies close the gap. In the frozen forests of Midgard, a good hunter learns patience — and patience wins wars.
+
+- **Strong against:** Slow infantry, heavy troops, siege
+- **Weak against:** Viking, Cavaleiro (fast melee closers)
+
+</details>
+
+<details>
+<summary><strong>🔵 Tier 2 — Advanced Troops</strong></summary>
+
+##### 4. Shieldmaiden *(Donzela do Escudo)*
+
+**Type:** Ground · Melee · Defensive
+**Tier:** 🔵 Advanced
+
+Legendary warrior women of the North, the Shieldmaidens wield reinforced iron-rimmed shields and short swords forged in the Dvergr's Quarry. They form impenetrable shield walls that absorb enemy charges and arrow volleys alike — boasting the highest combined melee and ranged defense among non-elite troops. Inspired by the sagas of Lagertha and Brynhildr, they are the living walls that protect what matters most.
+
+- **Strong against:** Bowman, Huntsman, ranged attackers
+- **Weak against:** Berserker, Jomsviking (overwhelming offensive power)
+
+---
+
+##### 5. Berserker
+
+**Type:** Ground · Melee · Offensive
+**Tier:** 🔵 Advanced
+
+Warriors consumed by the divine battle-trance known as *berserksgangr*. When the sacred fury takes hold, a Berserker becomes an unstoppable force of destruction — the highest melee damage output among all human troops. They fight shirtless, biting their shields, impervious to pain and fear. But the trance offers no protection: their defense is virtually nonexistent. A Berserker kills or dies. There is no middle ground.
+
+- **Strong against:** Shieldmaiden, defensive formations (overwhelming force)
+- **Weak against:** Spearman, Huntsman (disciplined counters)
+
+---
+
+##### 6. Huntsman *(Rastreador)*
+
+**Type:** Ground · Ranged · Offensive
+**Tier:** 🔵 Advanced
+
+Elite trackers and marksmen who have spent years surviving the untamed wilds of Midgard. Armed with composite bows and runic-tipped arrows, the Huntsman is deadlier and more precise than the common Bowman. Their arrows are specifically designed to pierce heavy armor, granting them a significant damage bonus against slow, armored targets like Huskarls and shield formations. Silent, patient, lethal.
+
+- **Strong against:** Heavy/slow troops (Huskarl, Shieldmaiden, Frost Giant)
+- **Weak against:** Viking, Cavaleiro (fast melee engagement)
+
+---
+
+##### 7. Cavaleiro *(Riddari)*
+
+**Type:** Ground · Melee · Mixed (Offensive + Defensive)
+**Tier:** 🔵 Advanced
+
+Mounted warriors riding the sturdy war-horses bred in the highlands of Midgard. The Cavaleiro is the most versatile unit in any Jarl's arsenal — capable of both devastating charges and reliable defensive maneuvers. They are not the strongest attacker nor the toughest defender, but they are competent at both, making them invaluable when the battle situation is uncertain. The cavalry of the Jarls has turned the tide of countless battles.
+
+- **Strong against:** Bowman, Huntsman, ranged units (fast gap-closing)
+- **Weak against:** Spearman, Huskarl (anti-cavalry specialists)
+
+</details>
+
+<details>
+<summary><strong>🟣 Tier 3 — Elite Troops</strong></summary>
+
+##### 8. Huskarl
+
+**Type:** Ground · Melee · Defensive
+**Tier:** 🟣 Elite
+
+The Jarl's personal guard — elite warriors clad in heavy iron armor, carrying tower shields and long swords. The Huskarl is the most resilient defensive unit in the entire game: a living wall of steel and unwavering loyalty. They require enormous amounts of Metal and Animal Skin to equip, and each one consumes significant population. But behind a line of Huskarls, a village stands unconquerable. Their oath is simple: *"The Jarl falls only after the last Huskarl has fallen."*
+
+- **Strong against:** Almost all ground troops (superior defense absorbs damage)
+- **Weak against:** Berserker, Jomsviking (raw damage that bypasses defensive posture)
+
+---
+
+##### 9. Jomsviking
+
+**Type:** Ground · Melee · Offensive
+**Tier:** 🟣 Elite
+
+Members of the legendary Jomsviking brotherhood — the most feared mercenary warriors in all of the North. Bound by an iron code of honor and forged in relentless combat, they combine devastating attack power with respectable defense. The Jomsviking is the definitive ground offensive unit: capable of breaking any formation, piercing any defense, and still standing when the dust settles. Recruiting them requires wealth and reputation.
+
+- **Strong against:** Huskarl, defensive formations, fortified positions
+- **Weak against:** Huntsman, Runecaster (ranged kiting and debuffs)
+
+---
+
+##### 10. Ulfhednar *(Wolf-Warrior)*
+
+**Type:** Ground · Melee · Offensive
+**Tier:** 🟣 Elite
+
+A step beyond the Berserker — the Ulfhednar dons the pelt of a sacred wolf and channels the beast's spirit in battle. Faster on the world map than any other ground troop, with raw damage rivaling the Jomsviking. The Ulfhednar is purpose-built for lightning raids: strike fast, loot everything, vanish before reinforcements arrive. Their speed makes them the ultimate harassment and pillaging unit, but they share the Berserker's weakness — charging into a prepared defensive formation is suicide.
+
+- **Strong against:** Isolated targets, resource raids, undefended villages
+- **Weak against:** Prepared defenses, Shieldmaiden + Spearman formations
+
+---
+
+##### 11. Runecaster *(Lançador de Runas)*
+
+**Type:** Ground · Ranged · Mixed (Offensive + Defensive)
+**Tier:** 🟣 Elite
+
+Warrior-mages who have studied the ancient runes at the Runic Sanctuary. They hurl projectiles infused with runic energy — not as powerful as a Huntsman's arrows, but carrying supernatural effects that weaken enemy troops (reduced accuracy, slowed movement, or diminished morale). The Runecaster is the bridge between the mundane and the divine, and the only regular troop that requires **Eldrunar** to train. They are also one of the few ground units capable of engaging flying enemies.
+
+- **Strong against:** Heavy troops (debuffs), flying units (runic tracking)
+- **Weak against:** Viking, Cavaleiro (fast melee closing negates range)
+
+</details>
+
+<details>
+<summary><strong>🟡 Tier 4 — Mythological Troops</strong></summary>
+
+> ⚠️ Mythological troops require allegiance to a **specific deity** at **Freyja's Temple** and consume **Eldrunar** to train. They are rare, powerful, and game-changing.
+
+##### 12. Valkyrie
+
+**Type:** Flying · Melee · Mixed (Offensive + Defensive)
+**Tier:** 🟡 Mythological
+**Deity:** Freyja
+
+The chosen warriors of Freyja, descended from the heavens on wings of light. Valkyries are **flying melee combatants** — they dive from above to strike with spear and sword, then ascend beyond the reach of ground-based melee troops. Their balanced attack and defense make them formidable in any engagement. However, they can be brought down by ranged units who can track their flight. Freyja sends her Valkyries to carry the worthy to Fólkvangr — and to ensure the unworthy never arrive.
+
+- **Strong against:** All ground melee troops (immune to melee counterattack)
+- **Weak against:** Bowman, Huntsman, Runecaster (ranged fire)
+
+---
+
+##### 13. Frost Giant *(Jötunn)*
+
+**Type:** Ground · Melee · Offensive (Siege)
+**Tier:** 🟡 Mythological
+**Deity:** Skadi
+
+A towering Jötunn summoned from the frozen peaks of Jötunheimr by Skadi's blessing. Slow, immense, and catastrophically powerful. The Frost Giant functions as a **living siege engine** — capable of smashing walls, crushing formations, and dealing devastating area damage. Each one consumes enormous population and Eldrunar to summon, and their glacial speed makes them vulnerable to ranged harassment. But when a Frost Giant reaches the gates, the gates cease to exist.
+
+- **Strong against:** Walls, fortifications, clustered formations, defensive lines
+- **Weak against:** Ranged units (Huntsman, Runecaster), fast raiders (Ulfhednar)
+
+---
+
+##### 14. Raven of Odin *(Huginn)*
+
+**Type:** Flying · Ranged · Offensive
+**Tier:** 🟡 Mythological
+**Deity:** —  *(Available once Freyja's Temple reaches sufficient level)*
+
+Enchanted ravens imbued with runic energy, striking from above with razor talons and arcane bolts. The Raven of Odin is a **flying ranged harasser** — fragile but untouchable by ground melee troops. They excel at picking off isolated units and disrupting enemy formations from above. Their weakness is their fragility: a focused volley from ground archers or a Runecaster's tracking projectiles will bring them down. Odin's eyes see all, and his ravens deliver his judgment.
+
+- **Strong against:** Ground melee troops without ranged support
+- **Weak against:** Huntsman, Runecaster, Bowman (concentrated ranged fire)
+
+---
+
+##### 15. Einherjar
+
+**Type:** Ground · Melee · Mixed (Offensive + Defensive)
+**Tier:** 🟡 Mythological
+**Deity:** Tyr
+
+The spirits of fallen warriors, summoned from Valhalla by Tyr's divine authority. The Einherjar is the **most powerful and balanced troop in the game** — exceptional attack, exceptional defense, exceptional HP. They are warriors who have already died and been perfected in the eternal training grounds of the gods. Summoning even a single Einherjar requires immense Eldrunar and population sacrifice. They are the ultimate investment: a small number of Einherjar can hold against armies. But they are not invincible — they can be overwhelmed by sheer numbers or outmaneuvered by faster raiders.
+
+- **Strong against:** Almost everything in direct combat (supreme stats)
+- **Weak against:** Numerical superiority, Ulfhednar raids (speed vs. power)
+
+</details>
+
+---
+
+#### Counter System Overview
+
+> The counter system ensures that **no single troop dominates** without a viable response. Every troop has strengths and weaknesses, creating strategic depth in army composition.
+
+| Troop | Strong Against | Weak Against |
+|-------|---------------|-------------- |
+| Spearman | Cavaleiro, mounted units | Viking, Berserker |
+| Viking | Bowman, ranged, light troops | Spearman, Shieldmaiden |
+| Bowman | Slow infantry, heavy troops | Viking, Cavaleiro |
+| Shieldmaiden | Ranged attackers | Berserker, Jomsviking |
+| Berserker | Defensive formations | Spearman, Huntsman |
+| Huntsman | Heavy/slow troops | Viking, Cavaleiro |
+| Cavaleiro | Ranged units | Spearman, Huskarl |
+| Huskarl | Most ground troops | Berserker, Jomsviking |
+| Jomsviking | Defensive formations | Huntsman, Runecaster |
+| Ulfhednar | Isolated targets, raids | Prepared defenses |
+| Runecaster | Heavy troops, flying units | Fast melee closers |
+| Valkyrie | Ground melee troops | Ranged fire |
+| Frost Giant | Walls, fortifications | Ranged units, fast raiders |
+| Raven of Odin | Ground melee without ranged | Concentrated ranged fire |
+| Einherjar | Direct combat superiority | Numerical superiority |
+
+---
+
+#### Flying Unit Mechanics
+
+> Flying troops (**Valkyrie**, **Raven of Odin**) introduce a new combat layer in the late game:
+> - **Immune to ground melee attacks** — ground melee troops cannot target flying units.
+> - **Vulnerable to ranged fire** — Bowman, Huntsman, and Runecaster can target flying units.
+> - **Flying vs. Flying** — flying units can engage each other in melee or ranged combat.
+> - **Strategic implication:** Late-game armies without ranged support become highly vulnerable to aerial assaults.
 
 ---
 
@@ -709,7 +1142,20 @@ With 1,304 citizens at max population, 10% resting (130 idle), **1,174 allocatab
 
 ### 8.11 Special Troops
 
-> **TODO:** Define special/mythological troop types unlocked via deities and Eldrunar.
+Mythological troops are defined in **Section 8.9 — Tier 4 (Mythological)**. These troops are unlocked through the **Freyja's Temple** building and require:
+
+- **Deity allegiance** — The player must be devoted to the corresponding deity (Freyja, Skadi, or Tyr).
+- **Eldrunar** — Mythological troops consume Eldrunar as part of their training cost.
+- **Freyja's Temple level** — Each mythological troop requires a minimum temple level.
+
+| # | Troop | Deity | Special Trait |
+|:-:|-------|:-----:|---------------|
+| 12 | **Valkyrie** | Freyja | 🦅 Flying · Immune to ground melee |
+| 13 | **Frost Giant** | Skadi | 🏰 Living siege engine · Area damage |
+| 14 | **Raven of Odin** | — | 🦅 Flying · Ranged harasser |
+| 15 | **Einherjar** | Tyr | 👑 Supreme balanced stats · Spirit warrior |
+
+> **TODO:** Define special abilities, deity-specific bonuses, and Eldrunar costs for each mythological troop.
 
 ---
 
@@ -727,7 +1173,58 @@ With 1,304 citizens at max population, 10% resting (130 idle), **1,174 allocatab
 
 ### 8.14 Battles
 
-> **TODO:** Define battle system — attack/defense calculations, troop interactions, siege mechanics.
+Battles are **auto-resolved instantly** on the server using **Lanchester's Square Law**. The player makes strategic decisions before combat (army composition, target selection), and the algorithm determines the winner and losses.
+
+> 📄 **Full algorithm with step-by-step formulas and 4 simulated battles:** [Battle Algorithm](./Battle%20Algorithm.md)
+
+#### Core Formula
+
+```
+If ATK > DEF → Attacker WINS
+  Attacker survival = √(1 − (DEF/ATK)²)
+  All defending troops are destroyed.
+
+If DEF ≥ ATK → Defender WINS
+  Defender survival = √(1 − (ATK/DEF)²)
+  All attacking troops are destroyed.
+```
+
+#### Key Mechanics
+
+| Mechanic | Description |
+|----------|-------------|
+| **Weighted Defense** | Each defender uses `DEF(M)` or `DEF(R)` proportionally to the attacker's melee/ranged composition |
+| **Flying Units** | Ground melee troops cannot target flying units; only ranged defenders contribute defense against aerial attacks |
+| **Watch Tower** | Multiplies total defense by up to 2.00× at level 20, plus adds flat base defense |
+| **Luck Factor** | Optional ±10% random modifier to prevent 100% predictable outcomes |
+
+#### Watch Tower Defense Bonus
+
+```
+wall_modifier = 1 + (WatchTowerLevel × 0.05)
+base_wall_DEF = WatchTowerLevel × 50
+Total_DEF = (DEF_base × wall_modifier) + base_wall_DEF
+```
+
+| Watch Tower Level | Multiplier | Base DEF |
+|:-----------------:|:----------:|:--------:|
+| 0 | 1.00× | 0 |
+| 5 | 1.25× | 250 |
+| 10 | 1.50× | 500 |
+| 15 | 1.75× | 750 |
+| 20 | 2.00× | 1,000 |
+
+#### Loss Curve Behavior
+
+| Ratio (loser/winner) | Winner Survival | Winner Losses |
+|:--------------------:|:---------------:|:-------------:|
+| 0.10 (domination) | 99.5% | 0.5% |
+| 0.50 | 86.6% | 13.4% |
+| 0.80 | 60.0% | 40.0% |
+| 0.95 | 31.2% | 68.8% |
+| 1.00 (tie) | 0.0% | 100% |
+
+> **Design Implication:** Attacking with only a slight advantage results in catastrophic losses. Players are incentivized to attack with clear superiority or to use optimized compositions that exploit the counter system.
 
 ---
 
