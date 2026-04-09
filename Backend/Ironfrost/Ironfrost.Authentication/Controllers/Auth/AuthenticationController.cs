@@ -22,10 +22,13 @@ public class AuthenticationController(IConfiguration configuration, IDataBaseSer
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<string>> Login([FromBody] LoginResponse loginResponse)
+    public async Task<ActionResult<Response>> Login([FromBody] LoginResponse loginResponse)
     {
         var loginResult = await loginResponse.Login(configuration, dataBaseService);
-        
+
+        if (!loginResult.ResponseResult)
+            return Unauthorized(loginResult);
+
         return Ok(loginResult);
     }
 
@@ -42,7 +45,10 @@ public class AuthenticationController(IConfiguration configuration, IDataBaseSer
     public async Task<ActionResult<Response>> CreateAccount([FromBody] LoginResponse loginResponse)
     {
         var createAccountResult = await loginResponse.CreateAccount(configuration, dataBaseService);
-        
+
+        if (!createAccountResult.ResponseResult)
+            return BadRequest(createAccountResult);
+
         return Ok(createAccountResult);
     }
 }

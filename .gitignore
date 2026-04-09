@@ -42,6 +42,7 @@
 
 # Environment
 .env
+appsettings.Development.json
 
 # .NET
 bin/

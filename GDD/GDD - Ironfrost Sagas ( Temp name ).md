@@ -144,20 +144,28 @@ The tutorial introduces the player to each core mechanic progressively:
 
 ### 8.3 World
 
-The player controls humans in **Midgard**. The world visualization is an **overworld map view**, allowing navigation through the entire world and seeing other players' cities.
+The player controls humans in **Midgard**. The world is a vast Nordic sea of islands, each holding clusters of villages across a flat 2D coordinate grid.
 
-Certain points on the map grant access to **other realms** (e.g., Asgard), where players can:
+The world is divided into **Regions** (geographic zones with distinct lore identity) → **Islands** (village clusters of 10–30 slots each) → **Villages** (individual player or barbarian settlements).
+
+Certain points on the map grant access to **other realms** (e.g., Asgard) via **Realm Gates**, where players can:
 - Send troops to **explore** and gain experience.
 - Complete **challenges** and **missions**.
 - Search for rare **materials**.
 
-> **Design Note:** Consider integrating the **Nine Worlds** and **Yggdrasil** (the World Tree) into the map structure — the map could represent transitions between the 9 realms.
+> 📄 **Full system design, world generation, and load-on-demand architecture:** [World Navigation & Village Visualization](./World%20Navigation%20%26%20Village%20Visualization.md)
+
+> **Design Note:** The Nine Worlds and Yggdrasil are integrated into the map as regions and realm gates — the map represents the Norse cosmos, with Midgard at the center and portals to outer realms at strategic positions.
 
 ---
 
 ### 8.4 World View
 
-Overworld map visualization, similar to Grepolis and Tribal Wars.
+Overworld map with **3 zoom levels** — strategic overview (region control), island view (village icons), and village detail (names, owners, points).
+
+Navigation uses pan + scroll/pinch. Village icons are color-coded by ownership state (own / friendly / enemy / barbarian / empty). Moving troop lines animate in real time via WebSocket. The map loads villages in **20×20 cell chunks on demand** as the player navigates — no full-world download.
+
+> 📄 **Navigation UX, chunk loading, and front-back communication details:** [World Navigation & Village Visualization](./World%20Navigation%20%26%20Village%20Visualization.md)
 
 ---
 

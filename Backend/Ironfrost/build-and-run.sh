@@ -1,6 +1,11 @@
 #!/bin/bash
 set -e
 
+echo "Cleaning previous publish output..."
+rm -rf Ironfrost.Authentication/publish
+rm -rf Ironfrost.GameService/publish
+rm -rf Ironfrost.PlayerService/publish
+
 echo "Publishing Ironfrost.Authentication..."
 dotnet publish Ironfrost.Authentication/Ironfrost.Authentication.csproj -c Release -o Ironfrost.Authentication/publish
 

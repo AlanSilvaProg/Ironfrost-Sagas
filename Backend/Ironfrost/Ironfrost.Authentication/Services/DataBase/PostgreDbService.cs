@@ -15,5 +15,5 @@ public class PostgreDbService(IConfiguration configuration) : DataBaseService
 public class PostgreDb(IConfiguration configuration) : ProjectDb
 {
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    => optionsBuilder.UseNpgsql(@$"Host={configuration["DbConnection:Host"]};Port={configuration["DbConnection:Port"]};Username={configuration["DbConnection:Username"]};Password={configuration["DbConnection:Password"]};Database={configuration["DbConnection:Database"]}");
+    => optionsBuilder.UseNpgsql(@$"Host={configuration["DbConnection:Host"]};Port={configuration["DbConnection:Port"]};Username={configuration["DbConnection:Username"]};Password={configuration["DbConnection:Password"]};Database={configuration["DbConnection:Database"]};SSL Mode=Require;Trust Server Certificate=true");
 }
