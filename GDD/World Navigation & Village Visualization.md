@@ -62,18 +62,20 @@ ZOOM LEVEL 3 — Village View (zoomed in)
 
 ### 1.4 Visual Identity of the Map
 
-The world map should feel **Nordic and alive**:
+The world map follows a **static visual style**, closely aligned with Grepolis and Tribal Wars — no animated backgrounds or continuous motion effects. The map is a detailed, painted illustration rendered as tiles. Animations are reserved for the **City/Village view** only.
 
-- **Background:** A dark, stormy Nordic sea — deep teal/grey water with subtle animated waves.
-- **Islands:** Rendered as distinct land masses with visible terrain variation (snowy peaks, forests, rocky coasts). Each island has a unique visual character.
-- **Villages:** Small icons on the island. Color-coded ring or flag indicates ownership:
+- **Background:** A Nordic sea rendered as a static illustrated tile — dark teal/grey water, hand-painted style. No wave animation.
+- **Islands:** Static land-mass illustrations with visible terrain variation (snowy peaks, forests, rocky coasts). Each island tile has a unique visual character matching its region biome.
+- **Villages:** Small static icons placed on island tiles. A color-coded ring or small flag indicates ownership state:
   - 🟤 Barbarian / unclaimed
   - 🔵 Enemy player
   - 🟢 Friendly / Aett member
   - 🔴 Your own village
   - ⚪ Empty slot (available for new player)
-- **Fog of War:** Areas far from any player village are darkened. Fog lifts around owned villages and recently scouted areas.
-- **Activity Indicators:** Moving troop lines (animated dashed arrows) show incoming/outgoing attacks in real time.
+- **Fog of War:** Areas beyond visibility range are darkened with a static overlay. Fog lifts around owned villages and recently scouted areas.
+- **March Indicators:** Incoming and outgoing troop movements are shown as **static dashed lines** drawn on the map between origin and target — similar to Tribal Wars' attack lines. No continuous animation; the line simply appears or disappears as the march status changes.
+
+> **Design Principle:** Keep the world map clean and readable at a glance. Visual complexity lives in the City View, not the World Map.
 
 ---
 
@@ -379,7 +381,7 @@ The world map uses **two communication channels**:
 | Channel | Protocol | Use Case |
 |---------|:--------:|----------|
 | **HTTP REST** | Request/Response | Chunk loading, village detail, initial world load |
-| **WebSocket** | Persistent bidirectional | Real-time troop movement arrows, conquest events, live point changes |
+| **WebSocket** | Persistent bidirectional | Server-push events: conquest notifications, march arrival/departure, chunk invalidation |
 
 ### 6.2 REST Endpoints — Chunk Loading
 

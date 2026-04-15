@@ -167,7 +167,7 @@ Não precisa de tabela de junção `UserVillage` — a relação é **1:N** simp
 
 // 🟣 Elite (Berserker's Barrack Lv 25–35 + Advanced Research)
 7  = Huskarl          (Huskarl — Ground, Melee, Defensive)
-8  = Jomsviking       (Jomsviking — Ground, Melee, Offensive)
+8  = Svinfylking      (Svinfylking — Ground, Melee, Offensive)
 9  = Ulfhednar        (Guerreiro-Lobo — Ground, Melee, Offensive)
 10 = Runecaster       (Lançador de Runas — Ground, Ranged, Mixed)
 

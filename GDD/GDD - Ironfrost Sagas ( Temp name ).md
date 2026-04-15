@@ -723,7 +723,7 @@ Troops are trained at the **Berserker's Barrack** (regular troops) or **Freyja's
 | 6  | Huntsman          | 🔵 Advanced   | 🚶 Ground       | 🏹 Ranged       | ⚔️ Offensive    | Berserker's Barrack     |
 | 7  | Cavaleiro         | 🔵 Advanced   | 🚶 Ground       | ⚔️ Melee        | ⚔️🛡️ Mixed     | Berserker's Barrack     |
 | 8  | Huskarl           | 🟣 Elite      | 🚶 Ground       | ⚔️ Melee        | 🛡️ Defensive    | Berserker's Barrack     |
-| 9  | Jomsviking        | 🟣 Elite      | 🚶 Ground       | ⚔️ Melee        | ⚔️ Offensive    | Berserker's Barrack     |
+| 9  | Svinfylking       | 🟣 Elite      | 🚶 Ground       | ⚔️ Melee        | ⚔️ Offensive    | Berserker's Barrack     |
 | 10 | Ulfhednar         | 🟣 Elite      | 🚶 Ground       | ⚔️ Melee        | ⚔️ Offensive    | Berserker's Barrack     |
 | 11 | Runecaster        | 🟣 Elite      | 🚶 Ground       | 🏹 Ranged       | ⚔️🛡️ Mixed     | Berserker's Barrack     |
 | 12 | Valkyrie          | 🟡 Mythological | 🦅 Flying     | ⚔️ Melee        | ⚔️🛡️ Mixed     | Freyja's Temple         |
@@ -746,9 +746,9 @@ Troops are trained at the **Berserker's Barrack** (regular troops) or **Freyja's
 | 5  | Berserker      | 45  | 5           | 3            | 20    | 30    | 2   |
 | 6  | Huntsman       | 30  | 8           | 20           | 22    | 30    | 2   |
 | 7  | Cavaleiro      | 30  | 25          | 18           | 24    | 50    | 3   |
-| 8  | Huskarl        | 20  | 55          | 45           | 14    | 15    | 5   |
-| 9  | Jomsviking     | 60  | 20          | 12           | 16    | 40    | 5   |
-| 10 | Ulfhednar      | 55  | 10          | 8            | 28    | 60    | 4   |
+| 8  | Huskarl        | 15  | 55          | 50           | 8     | 15    | 4   |
+| 9  | Svinfylking    | 60  | 20          | 12           | 16    | 40    | 5   |
+| 10 | Ulfhednar      | 65  | 15          | 10           | 22    | 30    | 4   |
 | 11 | Runecaster     | 35  | 15          | 25           | 14    | 20    | 5   |
 | 12 | Valkyrie       | 70  | 40          | 30           | 30    | 30    | 10  |
 | 13 | Frost Giant    | 120 | 50          | 15           | 8     | 100   | 15  |
@@ -830,11 +830,12 @@ Troops are trained at the **Berserker's Barrack** (regular troops) or **Freyja's
 **Visual Identity:** Predator, not a soldier. Where the Bowman is a trained militiaman, the Huntsman is an apex predator who has survived the wilds alone.
 
 ##### Cavaleiro (Riddari)
-**Silhouette:** Mounted figure on a stocky Norse horse. Sits tall in the saddle. Lance or sword raised. Horse draped with a simple cloth caparison.
-**Armor:** Half-plate over chainmail — iron pauldrons, breastplate, chainmail skirt. Open-faced helm with a nose guard and bronze inlay. Leather riding gloves.
-**Weapons:** Mounted lance (primary charge weapon). Arming sword (secondary). Round shield strapped to the off-arm or saddle.
-**Color Palette:** The most "knightly" troop — polished iron with bronze accents, deep crimson cloth caparison on the horse, clan sigil on the shield. The horse is a sturdy fjord breed (grey-dun color).
-**Visual Identity:** Authority and versatility. The Jarl's trusted commander. Should feel like the most "professional" soldier on the battlefield — disciplined, well-equipped, deadly from horseback.
+**Silhouette:** Highly imposing, dark mounted vanguard on a heavily armored Norse warhorse. Forward-leaning, aggressive posture ready to trample.
+**Armor (Rider):** Darkened overlapping iron scales (lamellar) over heavy chainmail. A menacing iron half-mask helm carved with runic warnings. Thick black fur mantle over the shoulders.
+**Armor (Horse):** The horse is protected by raw iron plating on the head and chest (chamfron and peytral), draped with heavy dark furs and jagged metal studs.
+**Weapons:** A heavy, blackened steel cavalry spear with a jagged edge. Heavy battered wooden round-shield reinforced with dark iron rings.
+**Color Palette:** Dark, brutal, and intimidating. Deep blacks, cold dark iron, tarnished silver, and heavy dark brown furs.
+**Visual Identity:** A terrifying, thunderous force of war. Less "noble knight" and more "harbinger of death on horseback". He is the vanguard that shatters the enemy's courage before shattering their lines.
 
 </details>
 
@@ -848,12 +849,11 @@ Troops are trained at the **Berserker's Barrack** (regular troops) or **Freyja's
 **Color Palette:** All iron and steel — the darkest, most heavily-armored silhouette. The helm obscures all humanity. Gold trim on the shield edge indicates Jarl's personal guard. Deep purple cloth beneath the armor.
 **Visual Identity:** An impenetrable fortress in human form. No face visible, no personality shown — only duty and iron. The ultimate "I shall not move" energy.
 
-##### Jomsviking
-**Silhouette:** Tall, athletic, combat-ready stance. Balanced posture — equally ready for offense or defense. Dual-wielding or wielding a longsword with shield.
-**Armor:** Blackened chainmail with a leather surcoat bearing the Jomsviking raven insignia. Iron-reinforced bracers. Open-faced helm with raven-wing side pieces. Black cloak pinned at the shoulder.
-**Weapons:** Longsword (masterwork steel). Round battle shield with the Jomsviking brotherhood emblem — a raven with spread wings over a sword.
-**Color Palette:** Black and gold — blackened iron, black leather, black cloak, with gold raven insignia and gold sword pommel. The elite mercenary look. Clean, professional, lethal.
-**Visual Identity:** The "special forces" aesthetic. Every piece of gear is perfectly maintained. They move like professionals. The contrast with the feral Berserker is stark — same destructive power, but with precision and control.
+##### Svinfylking
+- **Silhouette:** Imposing, heavily built shock trooper. Wide, aggressive stance wielding a massive polearm. Covered in thick furs and overlapping leather lamellar.
+- **Armor:** Thick overlapping leather lamellar over chainmail. A heavy boar-hide cloak draped over the back and shoulders. A heavy iron half-helm with a stylized metal boar crest forming the nose-guard.
+- **Weapons:** The **Atgeir** — a devastating two-handed Norse hewing spear with a long, heavy cutting blade. Capable of cleaving through shields and armor alike.
+- **Color Palette & Vibe:** Earthy, rich, and brutal. Dark brown leathers, rust-red accents, grey iron, and the bristly dark grey of boar fur. They look like a terrifying, disciplined stampede. Less 'clean medieval knight', more 'unbreakable Norse vanguard'.
 
 ##### Ulfhednar (Wolf-Warrior)
 **Silhouette:** Low, feral sprint posture. Running on all fours or in a deep crouch. Wolf pelt over the head and shoulders, blending the human and animal silhouette.
@@ -958,7 +958,7 @@ Hunters and woodsmen trained to loose arrows with deadly precision. The Bowman s
 Legendary warrior women of the North, the Shieldmaidens wield reinforced iron-rimmed shields and short swords forged in the Dvergr's Quarry. They form impenetrable shield walls that absorb enemy charges and arrow volleys alike — boasting the highest combined melee and ranged defense among non-elite troops. Inspired by the sagas of Lagertha and Brynhildr, they are the living walls that protect what matters most.
 
 - **Strong against:** Bowman, Huntsman, ranged attackers
-- **Weak against:** Berserker, Jomsviking (overwhelming offensive power)
+- **Weak against:** Berserker, Svinfylking (overwhelming offensive power)
 
 ---
 
@@ -1009,18 +1009,16 @@ Mounted warriors riding the sturdy war-horses bred in the highlands of Midgard. 
 The Jarl's personal guard — elite warriors clad in heavy iron armor, carrying tower shields and long swords. The Huskarl is the most resilient defensive unit in the entire game: a living wall of steel and unwavering loyalty. They require enormous amounts of Metal and Animal Skin to equip, and each one consumes significant population. But behind a line of Huskarls, a village stands unconquerable. Their oath is simple: *"The Jarl falls only after the last Huskarl has fallen."*
 
 - **Strong against:** Almost all ground troops (superior defense absorbs damage)
-- **Weak against:** Berserker, Jomsviking (raw damage that bypasses defensive posture)
+- **Weak against:** Berserker, Svinfylking (raw damage that bypasses defensive posture)
 
 ---
 
-##### 9. Jomsviking
+##### 9. Svinfylking
+- **Role:** Elite Shock Trooper
+- **Tier:** 🟣 Elite
+- **Description:** Elite shock troops dedicated to the boar-spirit (Svinfylking). They charge into battle forming the dreaded 'Boar Snout' wedge formation to break enemy lines. Wielding devastating two-handed Atgeirs (hewing spears) and heavily armored in reinforced leather and boar hides, they combine overwhelming attack power with respectable defense. The Svinfylking is the definitive ground offensive unit: capable of physically shattering shield walls and piercing any defense. Recruiting them requires immense resources.
 
-**Type:** Ground · Melee · Offensive
-**Tier:** 🟣 Elite
-
-Members of the legendary Jomsviking brotherhood — the most feared mercenary warriors in all of the North. Bound by an iron code of honor and forged in relentless combat, they combine devastating attack power with respectable defense. The Jomsviking is the definitive ground offensive unit: capable of breaking any formation, piercing any defense, and still standing when the dust settles. Recruiting them requires wealth and reputation.
-
-- **Strong against:** Huskarl, defensive formations, fortified positions
+- **Strong against:** Defensive formations, fortified positions
 - **Weak against:** Huntsman, Runecaster (ranged kiting and debuffs)
 
 ---
@@ -1030,7 +1028,7 @@ Members of the legendary Jomsviking brotherhood — the most feared mercenary wa
 **Type:** Ground · Melee · Offensive
 **Tier:** 🟣 Elite
 
-A step beyond the Berserker — the Ulfhednar dons the pelt of a sacred wolf and channels the beast's spirit in battle. Faster on the world map than any other ground troop, with raw damage rivaling the Jomsviking. The Ulfhednar is purpose-built for lightning raids: strike fast, loot everything, vanish before reinforcements arrive. Their speed makes them the ultimate harassment and pillaging unit, but they share the Berserker's weakness — charging into a prepared defensive formation is suicide.
+A step beyond the Berserker — the Ulfhednar dons the pelt of a sacred wolf and channels the beast's spirit in battle. Faster on the world map than any other ground troop, with raw damage rivaling the Svinfylking. The Ulfhednar is purpose-built for lightning raids: strike fast, loot everything, vanish before reinforcements arrive. Their speed makes them the ultimate harassment and pillaging unit, but they share the Berserker's weakness — charging into a prepared defensive formation is suicide.
 
 - **Strong against:** Isolated targets, resource raids, undefended villages
 - **Weak against:** Prepared defenses, Shieldmaiden + Spearman formations
@@ -1142,6 +1140,42 @@ The spirits of fallen warriors, summoned from Valhalla by Tyr's divine authority
 
 ---
 
+#### Troop Progression (Power Curve)
+
+The combat balance in *Ironfrost Sagas* is built on a power pyramid determined by raw base stats (ATK + DEF combination) and utility. From the basic recruit to the pinnacle of mythological power:
+
+##### 🟢 Basic Tier (Early Game - Mass & Economy)
+The "bread and butter" troops. Weak individually, but deadly in numbers.
+1. **Bowman (ATK: 20):** Most physically fragile. Pure ranged focus.
+2. **Spearman (ATK: 25):** Core defense. Holds lines.
+3. **Viking (ATK: 35):** Initial raw damage peak, but dies fast.
+
+##### 🔵 Advanced Tier (Mid Game - Focused Roles)
+Troops double in strength, fulfilling specialized tactical roles.
+4. **Shieldmaiden (Total: 40 ATK / 35 DEF):** A defensive juggernaut.
+5. **Huntsman (ATK: 30):** Bypasses defensive walls with high ranged damage.
+6. **Riddari (ATK: 30 / High DEF):** Dual utility. High HP, solid attack, fast, huge loot capacity.
+7. **Berserker (ATK: 45):** The raw offender of the mid-game. Low defense, heavy melee strike.
+
+##### 🟣 Elite Tier (Late Game - Line Breakers)
+Forces that require Eldrunar and heavy industry. A single unit crushes dozens of basic troops.
+8. **Runecaster (ATK: 35 / Good DEF):** Tactical ranged magic support and debuffer.
+9. **Huskarl (Total: 15 ATK / 55-50 DEF):** The unbreakable steel wall.
+10. **Svinfylking (ATK: 60):** Lethal shock troop built to crack Huskarl lines.
+11. **Ulfhednar (ATK: 65):** The peak of ground damage. Extremely fast but fragile raider.
+
+##### 🟡 Mythological Tier (End Game - Absolute Dominance)
+Forces that alter the rules of engagement on the map entirely.
+12. **Raven of Odin (ATK: 0):** Pure espionage. Invisible to ground units.
+13. **Valkyrie (ATK: 70):** Sky dominance. Ground melee cannot hit them.
+14. **Frost Giant (ATK: 120 / 100 POP):** Massive siege engine, breaks Watch Towers.
+15. **Einherjar (ATK: 180):** The definitive pinnacle of combat power in a single slot.
+
+**Base Attack Power Timeline:**
+`Bowman (20) → Viking (35) → Berserker (45) → Svinfylking (60) → Valkyrie (70) → Frost Giant (120) → Einherjar (180)`
+
+---
+
 ### 8.10 Heroes
 
 > **TODO:** Define hero system. Consider a roster of **9 heroes** — one mandatory per specific area/realm. Balance is a key challenge.
@@ -1168,9 +1202,28 @@ Mythological troops are defined in **Section 8.9 — Tier 4 (Mythological)**. Th
 ---
 
 ### 8.12 Ships
+In *Ironfrost Sagas*, naval combat acts as the first line of defense and offense between island clusters. Unlike ground troops, naval units have their own combat resolution phase. If an attacking fleet loses the naval battle, all ground troops being transported in their cargo ships are sent to the bottom of the sea.
 
-> **TODO:** Define ship types, stats, and naval mechanics.
+Naval balance is based heavily on **Population Efficiency** — determining how much attack or defense a ship provides relative to the farm space it consumes.
 
+#### The Viking Fleet
+
+| Class / Name | Role | Speed | Transport Cap. | Naval ATK | Naval DEF | Pop Cost | Cost (Wood/Clay/Stone/Iron) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :--- |
+| **1. Karvi** | Fast Transport | 18 | 15 | 0 | 5 | 4 | 450 / 200 / 0 / 50 |
+| **2. Knarr** | Heavy Transport | 9 | 40 | 0 | 10 | 8 | 1000 / 400 / 0 / 100 |
+| **3. Snekkja** | Light Attack | 16 | 0 | 160 | 40 | 6 | 1200 / 300 / 0 / 300 |
+| **4. Skeid** | Heavy Attack | 11 | 0 | 280 | 100 | 10 | 2200 / 600 / 0 / 800 |
+| **5. Skjaldskip**| Pure Defense | 8 | 0 | 20 | 280 | 8 | 1500 / 500 / 0 / 1200 |
+| **6. Dreki** | Flagship (Mixed) | 13 | 0 | 400 | 400 | 45 | 8000 / 2500 / 0 / 4500 |
+
+#### Naval Roles & Strategy
+
+- **Karvi & Knarr (Transports):** The logistical backbone. The Karvi is meant for rapid lightning raids with Ulfhednar or Vikings, outrunning defenses. The Knarr is slow but cost-effective, meant to carry the massive endgame siege armies.
+- **Snekkja (Blockade Breaker):** The classic "Glass Cannon". Highly population-efficient for pure attack (26 ATK per Pop), but sinks immediately if counter-attacked. Used to quickly clear enemy transports.
+- **Skeid (Line Ship):** The heavy hitter. Highly efficient and can take a punch, serving as the core of any serious naval assault against entrenched island defenses.
+- **Skjaldskip (Shield-Ship):** A floating fortress. Sacrifices all speed and offense to provide massive defense per population (35 DEF per Pop). A harbor filled with these is practically immune to light raids.
+- **Dreki (Dragon Ship):** The pinnacle of Norse naval engineering. The absolute best stats in the game, but consumes a staggering 45 Population. It is a flex of endgame wealth and terror.
 ---
 
 ### 8.13 Buff & Nerf Elements

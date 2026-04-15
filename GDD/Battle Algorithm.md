@@ -322,15 +322,17 @@ sobrevivência = √(1 − 0.449) = √(0.551) = 0.742
 
 ### ⚔️ Batalha 4 — Endgame: Choque Mitológico
 
+### ⚔️ Batalha 4 — Endgame: Choque Mitológico
+
 > Cenário: Ataque pesado de tropas elite + mitológicas contra defesa fortificada de alto nível.
 
-**Atacante:** 5 Einherjar + 2 Frost Giants + 15 Jomsvikings
+**Atacante:** 5 Einherjar + 2 Frost Giants + 15 Svinfylkings
 
 | Tropa | Qty | ATK/un | ATK Total | Tipo |
 |-------|:---:|:------:|:---------:|:----:|
 | Einherjar | 5 | 90 | 450 | Melee |
 | Frost Giant | 2 | 120 | 240 | Melee |
-| Jomsviking | 15 | 60 | 900 | Melee |
+| Svinfylking | 15 | 60 | 900 | Melee |
 
 - `Total_ATK = 1,590` (100% melee, 100% terrestre)
 
