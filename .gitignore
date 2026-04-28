@@ -59,3 +59,41 @@ publish/
 
 # OS
 .DS_Store
+
+# -------------------------------------------------------
+# Unity — IronFrost-Lab
+# -------------------------------------------------------
+
+# Pastas geradas automaticamente (nunca commitar)
+IronFrost-Lab/[Ll]ibrary/
+IronFrost-Lab/[Tt]emp/
+IronFrost-Lab/[Ll]ogs/
+IronFrost-Lab/[Bb]uild/
+IronFrost-Lab/[Bb]uilds/
+IronFrost-Lab/[Uu]ser[Ss]ettings/
+IronFrost-Lab/obj/
+
+# Arquivos de projeto gerados pelo Unity (recriados automaticamente)
+IronFrost-Lab/*.csproj
+IronFrost-Lab/*.sln
+IronFrost-Lab/*.unityproj
+
+# Cache e crash reports
+IronFrost-Lab/[Cc]rash[Rr]eport*/
+IronFrost-Lab/sysinfo.txt
+
+# Asset Store tools (cache local)
+IronFrost-Lab/[Aa]sset[Ss]tore[Tt]ools*/
+
+# Arquivos de meta gerados para pastas vazias (opcional — remova se quiser versionar metas)
+# IronFrost-Lab/**/*.meta
+
+# Configurações locais de usuário (JetBrains Rider, VS Code, etc.)
+IronFrost-Lab/.idea/
+IronFrost-Lab/.vscode/
+IronFrost-Lab/*.suo
+IronFrost-Lab/*.user
+
+# Bundles gerados
+IronFrost-Lab/ExportedObj/
+IronFrost-Lab/[Ss]team[Ii]ngworks*/
